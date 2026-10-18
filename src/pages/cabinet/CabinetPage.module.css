@@ -1,0 +1,4 @@
+.info p { margin: 0.3rem 0; }
+.muted { color: var(--muted); font-size: 0.85rem; font-weight: 200; }
+.label { color: #ff7a7a; font-size: 0.7rem; text-transform: uppercase; }
+.hr { border: none; border-top: 1px solid var(--border); margin: 1rem 0; }

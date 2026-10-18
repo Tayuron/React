@@ -1,0 +1,126 @@
+import { productImage } from './images';
+
+// Рядок: [назва, ціна, бренд, опис, специфікація для перевірки сумісності]
+const mk = (cat, rows) =>
+  rows.map(([name, price, brand, desc, spec = {}], i) => ({ id: `${cat}-${i + 1}`, name, price, brand, desc, image: productImage(`${cat}-${i + 1}`), kind: cat, ...spec }));
+const ALL = ['AM4', 'AM5', 'LGA1700', 'LGA1151'];
+
+export const configCategories = [
+  {
+    id: 'cpu', title: 'Процесор', required: true, emptyLabel: 'Не обрано',
+    options: mk('cpu', [
+      ['AMD Ryzen 5 5500', 4999, 'AMD', 'AM4 · 6 ядер · 65 Вт', { socket: 'AM4', tdp: 65 }],
+      ['AMD Ryzen 5 7600', 9499, 'AMD', 'AM5 · 6 ядер · 65 Вт', { socket: 'AM5', tdp: 65 }],
+      ['AMD Ryzen 7 7800X3D', 18999, 'AMD', 'AM5 · 8 ядер · 120 Вт', { socket: 'AM5', tdp: 120 }],
+      ['Intel Core i3-12100F', 3999, 'Intel', 'LGA1700 · 4 ядра · 58 Вт', { socket: 'LGA1700', tdp: 58 }],
+      ['Intel Core i5-14600KF', 12499, 'Intel', 'LGA1700 · 14 ядер · 125 Вт', { socket: 'LGA1700', tdp: 125 }],
+      ['Intel Core i9-14900K', 24999, 'Intel', 'LGA1700 · 24 ядра · 125 Вт', { socket: 'LGA1700', tdp: 125 }],
+      ['AMD Ryzen 5 8600G', 9999, 'AMD', 'AM5 · 6 ядер · 65 Вт · Ryzen AI', { socket: 'AM5', tdp: 65 }],
+      ['Intel Core i3-9100F', 3199, 'Intel', 'LGA1151 · 4 ядра · 65 Вт · потрібна відеокарта', { socket: 'LGA1151', tdp: 65 }],
+    ]),
+  },
+  {
+    id: 'cooler', title: 'Кулер', required: true, emptyLabel: 'Не обрано',
+    options: mk('cooler', [
+      ['AMD Wraith Stealth', 399, 'AMD', 'AM4/AM5 · до 65 Вт', { sockets: ['AM4', 'AM5'], coolTdp: 65 }],
+      ['DeepCool AK400', 1199, 'DeepCool', 'AM4/AM5/LGA1700/1151 · до 220 Вт', { sockets: ALL, coolTdp: 220 }],
+      ['Noctua NH-D15', 4199, 'Noctua', 'Усі сокети · до 250 Вт', { sockets: ALL, coolTdp: 250 }],
+      ['Arctic Liquid Freezer III 240', 4999, 'Arctic', 'Рідинне, 240 мм · до 300 Вт', { sockets: ALL, coolTdp: 300 }],
+    ]),
+  },
+  {
+    id: 'motherboard', title: 'Материнська плата', required: true, emptyLabel: 'Не обрано',
+    options: mk('motherboard', [
+      ['MSI PRO B550M-P', 3299, 'MSI', 'AM4 · DDR4 · mATX', { socket: 'AM4', ramType: 'DDR4', formFactor: 'mATX' }],
+      ['ASUS TUF Gaming B650-Plus', 7999, 'ASUS', 'AM5 · DDR5 · ATX', { socket: 'AM5', ramType: 'DDR5', formFactor: 'ATX' }],
+      ['Gigabyte B760M DS3H', 3999, 'Gigabyte', 'LGA1700 · DDR4 · mATX', { socket: 'LGA1700', ramType: 'DDR4', formFactor: 'mATX' }],
+      ['MSI PRO B760M-A WiFi', 5999, 'MSI', 'LGA1700 · DDR5 · mATX', { socket: 'LGA1700', ramType: 'DDR5', formFactor: 'mATX' }],
+      ['ASUS TUF Gaming Z790-Plus WiFi', 9499, 'ASUS', 'LGA1700 · DDR5 · ATX', { socket: 'LGA1700', ramType: 'DDR5', formFactor: 'ATX' }],
+      ['ASUS PRIME H310M-K', 2599, 'ASUS', 'LGA1151 · DDR4 · mATX', { socket: 'LGA1151', ramType: 'DDR4', formFactor: 'mATX' }],
+    ]),
+  },
+  {
+    id: 'ram', title: 'Оперативна памʼять', required: true, emptyLabel: 'Не обрано',
+    options: mk('ram', [
+      ['Kingston Fury Beast 16GB DDR4', 1899, 'Kingston', 'DDR4 · 3200 MHz · 2x8GB', { ramType: 'DDR4' }],
+      ['Kingston Fury Beast 32GB DDR4', 3199, 'Kingston', 'DDR4 · 3600 MHz · 2x16GB', { ramType: 'DDR4' }],
+      ['Kingston Fury Beast 16GB DDR5', 2899, 'Kingston', 'DDR5 · 5600 MHz · 2x8GB', { ramType: 'DDR5' }],
+      ['Kingston Fury Beast RGB 32GB DDR5', 5299, 'Kingston', 'DDR5 · 6000 MHz · 2x16GB', { ramType: 'DDR5' }],
+      ['Corsair Vengeance 64GB DDR5', 9799, 'Corsair', 'DDR5 · 6000 MHz · 2x32GB', { ramType: 'DDR5' }],
+    ]),
+  },
+  {
+    id: 'gpu', title: 'Відеокарта', required: true, emptyLabel: 'Не обрано',
+    options: mk('gpu', [
+      ['GeForce RTX 3060 12GB', 13999, 'NVIDIA', '12GB GDDR6 · 170 Вт', { tdp: 170 }],
+      ['GeForce RTX 4060 8GB', 14999, 'NVIDIA', '8GB GDDR6 · 115 Вт', { tdp: 115 }],
+      ['GeForce RTX 4070 Super 12GB', 29999, 'NVIDIA', '12GB GDDR6X · 220 Вт', { tdp: 220 }],
+      ['GeForce RTX 4070 Ti Super 16GB', 39999, 'NVIDIA', '16GB GDDR6X · 285 Вт', { tdp: 285 }],
+      ['Radeon RX 7800 XT 16GB', 25999, 'AMD', '16GB GDDR6 · 263 Вт', { tdp: 263 }],
+      ['ASUS Dual GeForce RTX 3050 OC 8GB', 9499, 'NVIDIA', '8GB GDDR6 · PCIe 4.0 · 130 Вт', { tdp: 130 }],
+    ]),
+  },
+  {
+    id: 'ssd', title: 'Накопичувач SSD', required: true, emptyLabel: 'Не обрано',
+    options: mk('ssd', [
+      ['Samsung 980 500GB NVMe', 1599, 'Samsung', 'PCIe 3.0 · 3500/3000 MB/s'],
+      ['Kingston NV2 1TB NVMe', 2599, 'Kingston', 'PCIe 4.0 · 3500/2100 MB/s'],
+      ['WD Black SN850X 2TB NVMe', 6499, 'WD', 'PCIe 4.0 · 7300/6600 MB/s'],
+      ['Samsung 990 Pro 2TB NVMe', 6899, 'Samsung', 'PCIe 4.0 · 7450/6900 MB/s'],
+    ]),
+  },
+  {
+    id: 'hdd', title: 'Накопичувач HDD', required: false, emptyLabel: 'Без HDD накопичувача',
+    options: mk('hdd', [
+      ['Seagate Barracuda 1TB', 1699, 'Seagate', '7200 об/хв · 3.5"'],
+      ['WD Blue 2TB', 2799, 'WD', '5400 об/хв · 3.5"'],
+      ['Seagate Barracuda 4TB', 4399, 'Seagate', '5400 об/хв · 3.5"'],
+    ]),
+  },
+  {
+    id: 'psu', title: 'Блок живлення', required: true, emptyLabel: 'Не обрано',
+    options: mk('psu', [
+      ['Chieftec 500W', 1399, 'Chieftec', '500 Вт · 80+ White', { watts: 500 }],
+      ['be quiet! System Power 10 650W', 2799, 'be quiet!', '650 Вт · 80+ Bronze', { watts: 650 }],
+      ['Corsair RM850x 850W', 5999, 'Corsair', '850 Вт · 80+ Gold · модульний', { watts: 850 }],
+      ['Seasonic Focus GX-1000', 7499, 'Seasonic', '1000 Вт · 80+ Gold · модульний', { watts: 1000 }],
+    ]),
+  },
+  {
+    id: 'case', title: 'Корпус', required: true, emptyLabel: 'Не обрано',
+    options: mk('case', [
+      ['Zalman T1 Plus', 1499, 'Zalman', 'Mini-Tower · mATX', { formFactors: ['mATX'] }],
+      ['1stPlayer F3', 2199, 'Zalman', 'Midi-Tower · mATX/ATX · ARGB', { formFactors: ['mATX', 'ATX'] }],
+      ['LIAN LI Lancool 216 RGB', 4199, 'Lian Li', 'Midi-Tower · mATX/ATX · скло', { formFactors: ['mATX', 'ATX'] }],
+      ['Fractal Design North', 6499, 'Fractal', 'Mid-Tower · mATX/ATX · дерево', { formFactors: ['mATX', 'ATX'] }],
+    ]),
+  },
+  {
+    id: 'fans', title: 'Додаткові вентилятори', required: false, emptyLabel: 'Без вентиляторів',
+    options: mk('fans', [
+      ['Arctic P12 ARGB (3 шт.)', 899, 'Arctic', '120 мм · ARGB'],
+      ['Noctua NF-A12x25 PWM', 1199, 'Noctua', '120 мм · тихий'],
+    ]),
+  },
+  {
+    id: 'cables', title: 'Додаткові кабелі', required: false, emptyLabel: 'Без додаткових кабелів',
+    options: mk('cables', [
+      ['Набір подовжувачів ARGB', 799, 'Lian Li', 'Подовжувачі живлення'],
+      ['Corsair Premium Sleeved Kit', 1999, 'Corsair', 'Оплетені кабелі'],
+    ]),
+  },
+  {
+    id: 'wifi', title: 'Wi-Fi адаптер', required: false, emptyLabel: 'Без Wi-Fi адаптера',
+    options: mk('wifi', [
+      ['TP-Link Archer TX20E', 899, 'TP-Link', 'Wi-Fi 6 · Bluetooth 5.2'],
+      ['ASUS PCE-AX3000', 1599, 'ASUS', 'Wi-Fi 6 · Bluetooth 5.0'],
+    ]),
+  },
+  {
+    id: 'os', title: 'Програмне забезпечення', required: false, emptyLabel: 'Тестова версія Windows',
+    options: mk('os', [
+      ['Windows 11 Home', 3999, 'Microsoft', 'Ліцензія для дому'],
+      ['Windows 11 Pro', 5499, 'Microsoft', 'Ліцензія Pro'],
+    ]),
+  },
+];

@@ -1,13 +1,74 @@
-.wrap { padding: 3rem 5%; display: flex; justify-content: center; }
-.card { width: 100%; max-width: 720px; padding: 2.5rem; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 0 40px rgba(162, 0, 0, 0.2); }
-.title { font-size: 2rem; margin-bottom: 0.4rem; }
-.sub { color: var(--muted); font-size: 0.9rem; margin: 0 0 1.8rem; }
-.row { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1.2rem; font-size: 0.85rem; }
-.check { display: flex; align-items: center; gap: 8px; }
-.forgot { color: var(--red-bright); font-weight: 700; }
-.alt { text-align: center; margin: 1.2rem 0 0.8rem; font-size: 0.85rem; color: var(--muted); }
-.alt a { color: var(--text); font-weight: 700; }
-.safe { text-align: center; font-size: 0.75rem; color: #666; margin: 0; }
-.eye { background: none; border: none; color: var(--muted); cursor: pointer; display: flex; padding: 0; }
-@media (max-width: 600px) { .card { padding: 1.5rem; } }
-.formError { margin: 0 0 1rem; font-size: 0.8rem; color: #ff6b6b; }
+.wrap {
+  padding: 3rem 5%;
+  display: flex;
+  justify-content: center;
+}
+.card {
+  width: 100%;
+  max-width: 720px;
+  padding: 2.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 0 40px rgba(162, 0, 0, 0.2);
+}
+.title {
+  font-size: 2rem;
+  margin-bottom: 0.4rem;
+}
+.sub {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0 0 1.8rem;
+}
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+  font-size: 0.85rem;
+}
+.check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.forgot {
+  color: var(--red-bright);
+  font-weight: 700;
+}
+.alt {
+  text-align: center;
+  margin: 1.2rem 0 0.8rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.alt a {
+  color: var(--text);
+  font-weight: 700;
+}
+.safe {
+  text-align: center;
+  font-size: 0.75rem;
+  color: #666;
+  margin: 0;
+}
+.eye {
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  display: flex;
+  padding: 0;
+}
+@media (max-width: 600px) {
+  .card {
+    padding: 1.5rem;
+  }
+}
+.formError {
+  margin: 0 0 1rem;
+  font-size: 0.8rem;
+  color: #ff6b6b;
+}

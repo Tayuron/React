@@ -1,6 +1,6 @@
-import Button from '../Button/Button'
-import { formatPrice } from '../../data/products'
-import s from './ShopLayout.module.css'
+import Button from '../Button/Button';
+import { formatPrice } from '../../data/products';
+import s from './ShopLayout.module.css';
 
 export default function ShopLayout({ title, items, filters }) {
   return (
@@ -16,10 +16,16 @@ export default function ShopLayout({ title, items, filters }) {
           {filters.map((f) => (
             <fieldset key={f.title} className={s.group}>
               <legend>{f.title}</legend>
-              {f.options.map((o) => <label key={o}><input type="checkbox" /> {o}</label>)}
+              {f.options.map((o) => (
+                <label key={o}>
+                  <input type="checkbox" /> {o}
+                </label>
+              ))}
             </fieldset>
           ))}
-          <Button type="submit" full>Застосувати</Button>
+          <Button type="submit" full>
+            Застосувати
+          </Button>
         </form>
       </aside>
 
@@ -43,5 +49,5 @@ export default function ShopLayout({ title, items, filters }) {
         </div>
       </section>
     </div>
-  )
+  );
 }

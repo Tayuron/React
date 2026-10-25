@@ -1,2 +1,19 @@
-.fallback { display: flex; align-items: center; justify-content: center; aspect-ratio: 1 / 1; overflow: hidden; background: linear-gradient(135deg, #1a1a1a, #2b0000); color: var(--muted); font-family: var(--font-head); font-weight: 700; text-transform: uppercase; }
-.icon { width: 56%; height: 56%; max-width: 120px; color: var(--red); opacity: 0.9; }
+.fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: linear-gradient(135deg, #1a1a1a, #2b0000);
+  color: var(--muted);
+  font-family: var(--font-head);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.icon {
+  width: 56%;
+  height: 56%;
+  max-width: 120px;
+  color: var(--red);
+  opacity: 0.9;
+}

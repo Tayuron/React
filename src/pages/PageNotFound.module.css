@@ -1,0 +1,28 @@
+.container {
+  min-height: 65vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 5%;
+  text-align: center;
+}
+
+.code {
+  font-size: clamp(5rem, 15vw, 10rem);
+  color: var(--red-bright);
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+
+.container h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.container p {
+  max-width: 500px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}

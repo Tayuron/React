@@ -15,6 +15,7 @@ import { OrdersPage } from './pages/cabinet/OrdersPage';
 import { FavoritesPage } from './pages/cabinet/FavoritesPage';
 import { LoginPage } from './pages/auth/LoginPage';
 import { RegisterPage } from './pages/auth/RegisterPage';
+import { PageNotFound } from './pages/PageNotFound';
 
 function App() {
   return (
@@ -29,12 +30,27 @@ function App() {
         <Route path="cart" element={<CartPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
-        <Route path="requisites" element={<RequireAuth><RequisitesPage /></RequireAuth>} />
-        <Route path="cabinet" element={<RequireAuth><CabinetLayout /></RequireAuth>}>
+        <Route
+          path="requisites"
+          element={
+            <RequireAuth>
+              <RequisitesPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="cabinet"
+          element={
+            <RequireAuth>
+              <CabinetLayout />
+            </RequireAuth>
+          }
+        >
           <Route index element={<CabinetPage />} />
           <Route path="orders" element={<OrdersPage />} />
           <Route path="favorites" element={<FavoritesPage />} />
         </Route>
+        <Route path="*" element={<PageNotFound />} />
       </Route>
     </Routes>
   );

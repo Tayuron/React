@@ -32,7 +32,10 @@ export function useFilters(items, fields) {
   const toggle = (key, value) =>
     setSelected((s) => {
       const cur = s[key] ?? [];
-      return { ...s, [key]: cur.includes(value) ? cur.filter((v) => v !== value) : [...cur, value] };
+      return {
+        ...s,
+        [key]: cur.includes(value) ? cur.filter((v) => v !== value) : [...cur, value],
+      };
     });
   const reset = () => {
     setQuery('');
@@ -42,5 +45,15 @@ export function useFilters(items, fields) {
   };
   const isActive = Boolean(query || min || max || Object.values(selected).some((v) => v.length));
 
-  return { filtered, groups, state: { query, min, max, selected }, setQuery, setMin, setMax, toggle, reset, isActive };
+  return {
+    filtered,
+    groups,
+    state: { query, min, max, selected },
+    setQuery,
+    setMin,
+    setMax,
+    toggle,
+    reset,
+    isActive,
+  };
 }

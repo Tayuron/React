@@ -42,14 +42,21 @@ export function CartProvider({ children }) {
 
   const update = useCallback((fn) => setState((s) => ({ ...s, items: fn(s.items) })), []);
   const add = useCallback(
-    (p) => update((items) => merge(items, [{ id: p.id, name: p.name, price: p.price, image: p.image, kind: p.kind, qty: 1 }])),
+    (p) =>
+      update((items) =>
+        merge(items, [
+          { id: p.id, name: p.name, price: p.price, image: p.image, kind: p.kind, qty: 1 },
+        ]),
+      ),
     [update],
   );
   const remove = useCallback((id) => update((items) => items.filter((i) => i.id !== id)), [update]);
   const setQty = useCallback(
     (id, qty) =>
       update((items) =>
-        qty <= 0 ? items.filter((i) => i.id !== id) : items.map((i) => (i.id === id ? { ...i, qty } : i)),
+        qty <= 0
+          ? items.filter((i) => i.id !== id)
+          : items.map((i) => (i.id === id ? { ...i, qty } : i)),
       ),
     [update],
   );

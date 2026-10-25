@@ -37,10 +37,21 @@ export function LoginPage() {
       <form className={s.card} onSubmit={onSubmit} noValidate>
         <h1 className={s.title}>Вхід до акаунта</h1>
         <p className={s.sub}>
-          {from ? 'Увійдіть, щоб продовжити.' : 'Введіть дані, які використовували під час реєстрації.'}
+          {from
+            ? 'Увійдіть, щоб продовжити.'
+            : 'Введіть дані, які використовували під час реєстрації.'}
         </p>
 
-        <FormField id="email" type="email" label="Email" placeholder="name@email.com" icon={<MailIcon />} value={form.email} onChange={onChange} autoComplete="email" />
+        <FormField
+          id="email"
+          type="email"
+          label="Email"
+          placeholder="name@email.com"
+          icon={<MailIcon />}
+          value={form.email}
+          onChange={onChange}
+          autoComplete="email"
+        />
         <FormField
           id="password"
           type={show ? 'text' : 'password'}
@@ -51,7 +62,12 @@ export function LoginPage() {
           onChange={onChange}
           autoComplete="current-password"
           trailing={
-            <button type="button" className={s.eye} aria-label={show ? 'Сховати пароль' : 'Показати пароль'} onClick={() => setShow((v) => !v)}>
+            <button
+              type="button"
+              className={s.eye}
+              aria-label={show ? 'Сховати пароль' : 'Показати пароль'}
+              onClick={() => setShow((v) => !v)}
+            >
               <EyeIcon />
             </button>
           }
@@ -59,13 +75,25 @@ export function LoginPage() {
 
         <div className={s.row}>
           <label className={s.check}>
-            <input type="checkbox" name="remember" checked={form.remember} onChange={onChange} /> Запамʼятати мене
+            <input type="checkbox" name="remember" checked={form.remember} onChange={onChange} />{' '}
+            Запамʼятати мене
           </label>
         </div>
 
-        {error && <p className={s.formError} role="alert">{error}</p>}
-        <Button type="submit" full disabled={busy}>{busy ? 'Входимо…' : 'Увійти'}</Button>
-        <p className={s.alt}>Ще немає акаунта? <Link to="/register" state={location.state}>Зареєструватися</Link></p>
+        {error && (
+          <p className={s.formError} role="alert">
+            {error}
+          </p>
+        )}
+        <Button type="submit" full disabled={busy}>
+          {busy ? 'Входимо…' : 'Увійти'}
+        </Button>
+        <p className={s.alt}>
+          Ще немає акаунта?{' '}
+          <Link to="/register" state={location.state}>
+            Зареєструватися
+          </Link>
+        </p>
       </form>
     </div>
   );

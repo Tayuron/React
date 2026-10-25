@@ -3,9 +3,15 @@ import s from './FormField.module.css';
 export function FormField({ id, label, icon, trailing, error, ...input }) {
   return (
     <div className={s.field}>
-      <label htmlFor={id} className={s.label}>{label}</label>
+      <label htmlFor={id} className={s.label}>
+        {label}
+      </label>
       <div className={`${s.control} ${error ? s.invalid : ''}`}>
-        {icon && <span className={s.icon} aria-hidden="true">{icon}</span>}
+        {icon && (
+          <span className={s.icon} aria-hidden="true">
+            {icon}
+          </span>
+        )}
         <input
           id={id}
           name={id}
@@ -16,7 +22,11 @@ export function FormField({ id, label, icon, trailing, error, ...input }) {
         />
         {trailing}
       </div>
-      {error && <p id={`${id}-error`} className={s.error} role="alert">{error}</p>}
+      {error && (
+        <p id={`${id}-error`} className={s.error} role="alert">
+          {error}
+        </p>
+      )}
     </div>
   );
 }

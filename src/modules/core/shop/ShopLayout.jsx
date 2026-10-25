@@ -24,7 +24,9 @@ export function ShopLayout({ title, items, fields, renderItem }) {
         ) : (
           <div className={s.empty}>
             <p>За вашими фільтрами нічого не знайдено.</p>
-            <Button variant="outline" onClick={filters.reset}>Скинути фільтри</Button>
+            <Button variant="outline" onClick={filters.reset}>
+              Скинути фільтри
+            </Button>
           </div>
         )}
       </section>

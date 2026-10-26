@@ -1,0 +1,47 @@
+.footer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 2.5rem 5% 1.5rem;
+  font-weight: 200;
+  font-size: 0.9rem;
+}
+.content {
+  max-width: 1200px;
+  margin: 0 auto 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: space-between;
+}
+.content section {
+  flex: 1;
+  min-width: 200px;
+}
+.content h3 {
+  color: var(--red-bright);
+  margin-bottom: 1rem;
+}
+.content p {
+  margin: 0 0 0.4rem;
+  line-height: 1.6;
+}
+.content ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.content li {
+  line-height: 1.9;
+}
+.content a:hover {
+  color: var(--red-bright);
+}
+.bottom {
+  max-width: 1200px;
+  margin: 0 auto;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #a0a0a0;
+}

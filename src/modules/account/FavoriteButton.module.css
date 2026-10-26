@@ -1,0 +1,26 @@
+.btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--text);
+  cursor: pointer;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+}
+.btn:hover {
+  border-color: var(--red-bright);
+  color: var(--red-bright);
+}
+.on {
+  color: var(--red-bright);
+  border-color: var(--red-bright);
+}

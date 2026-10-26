@@ -1,0 +1,133 @@
+.layout {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem 4%;
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+.sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.2rem;
+  font-size: 0.9rem;
+}
+.sidebar h4 {
+  margin: 1.2rem 0 0.6rem;
+  font-size: 0.8rem;
+  color: var(--red-bright);
+  text-transform: uppercase;
+}
+.range {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 0.5rem;
+}
+.range input {
+  width: 100%;
+  min-width: 0;
+  padding: 8px;
+  background: #000;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  font-family: var(--font-body);
+}
+.group {
+  border: none;
+  padding: 0;
+  margin: 0 0 1.2rem;
+}
+.group legend {
+  padding: 0;
+  margin-bottom: 0.6rem;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: var(--red-bright);
+  text-transform: uppercase;
+}
+.group label {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-weight: 200;
+}
+.content {
+  flex: 1;
+  min-width: 0;
+}
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+.head h1 {
+  font-size: 1.8rem;
+}
+.count {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 1.5rem;
+}
+.card {
+  background: #000;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: border-color 0.3s;
+}
+.card:hover {
+  border-color: var(--red);
+}
+.thumb {
+  aspect-ratio: 4 / 3;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #1a1a1a, #2b0000);
+}
+.card h3 {
+  font-size: 1rem;
+  margin-top: 0.4rem;
+}
+.info {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 200;
+  color: var(--muted);
+  flex: 1;
+}
+.foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+.foot strong {
+  font-family: var(--font-head);
+  color: var(--red-bright);
+}
+.foot :global(button) {
+  padding: 8px 14px;
+  font-size: 0.8rem;
+}
+@media (max-width: 800px) {
+  .layout {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+  }
+}

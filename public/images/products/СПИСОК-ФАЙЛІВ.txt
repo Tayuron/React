@@ -1,0 +1,103 @@
+ЯКІ ФОТО ПОТРІБНІ (формат .webp, квадрат ~600x600, до 150 КБ)
+Файли кладуться в public/images/products/
+[є] = фото вже додано, [ ] = ще немає (покажеться заглушка)
+
+== Готові збірки (вже є фото в public/images, можна не додавати) ==
+[ ]  terminator-lite.webp  —  TERMINATOR-lite
+[ ]  jag-panzer.webp  —  JAG-PANZER
+
+== Комплектуючі ==
+[ ]  c1.webp  —  Intel Core i9-14900K
+[ ]  c2.webp  —  ASUS GeForce RTX 4070 Ti Super
+[ ]  c3.webp  —  Samsung 990 Pro 2TB
+[ ]  c4.webp  —  ASUS ROG Strix Z790-E
+[ ]  c5.webp  —  Kingston Fury Beast 32GB
+[ ]  c6.webp  —  Noctua NH-D15
+
+== Периферія ==
+[ ]  p1.webp  —  Logitech G Pro X Superlight 2
+[ ]  p2.webp  —  HyperX Alloy Origins
+[ ]  p3.webp  —  ASUS TUF Gaming VG27AQ
+[ ]  p4.webp  —  Razer BlackShark V2
+[ ]  p5.webp  —  SteelSeries QcK Heavy
+[ ]  p6.webp  —  Logitech C920
+
+== Конфігуратор: Процесор ==
+[ ]  cpu-1.webp  —  AMD Ryzen 5 5500
+[ ]  cpu-2.webp  —  AMD Ryzen 5 7600
+[ ]  cpu-3.webp  —  AMD Ryzen 7 7800X3D
+[ ]  cpu-4.webp  —  Intel Core i3-12100F
+[ ]  cpu-5.webp  —  Intel Core i5-14600KF
+[ ]  cpu-6.webp  —  Intel Core i9-14900K
+[є]  cpu-7.webp  —  AMD Ryzen 5 8600G
+[є]  cpu-8.webp  —  Intel Core i3-9100F
+
+== Конфігуратор: Кулер ==
+[ ]  cooler-1.webp  —  AMD Wraith Stealth
+[ ]  cooler-2.webp  —  DeepCool AK400
+[ ]  cooler-3.webp  —  Noctua NH-D15
+[ ]  cooler-4.webp  —  Arctic Liquid Freezer III 240
+
+== Конфігуратор: Материнська плата ==
+[ ]  motherboard-1.webp  —  MSI PRO B550M-P
+[ ]  motherboard-2.webp  —  ASUS TUF Gaming B650-Plus
+[ ]  motherboard-3.webp  —  Gigabyte B760M DS3H
+[ ]  motherboard-4.webp  —  MSI PRO B760M-A WiFi
+[ ]  motherboard-5.webp  —  ASUS TUF Gaming Z790-Plus WiFi
+[ ]  motherboard-6.webp  —  ASUS PRIME H310M-K
+
+== Конфігуратор: Оперативна памʼять ==
+[ ]  ram-1.webp  —  Kingston Fury Beast 16GB DDR4
+[ ]  ram-2.webp  —  Kingston Fury Beast 32GB DDR4
+[ ]  ram-3.webp  —  Kingston Fury Beast 16GB DDR5
+[ ]  ram-4.webp  —  Kingston Fury Beast RGB 32GB DDR5
+[ ]  ram-5.webp  —  Corsair Vengeance 64GB DDR5
+
+== Конфігуратор: Відеокарта ==
+[ ]  gpu-1.webp  —  GeForce RTX 3060 12GB
+[ ]  gpu-2.webp  —  GeForce RTX 4060 8GB
+[ ]  gpu-3.webp  —  GeForce RTX 4070 Super 12GB
+[ ]  gpu-4.webp  —  GeForce RTX 4070 Ti Super 16GB
+[ ]  gpu-5.webp  —  Radeon RX 7800 XT 16GB
+[є]  gpu-6.webp  —  ASUS Dual GeForce RTX 3050 OC 8GB
+
+== Конфігуратор: Накопичувач SSD ==
+[ ]  ssd-1.webp  —  Samsung 980 500GB NVMe
+[ ]  ssd-2.webp  —  Kingston NV2 1TB NVMe
+[ ]  ssd-3.webp  —  WD Black SN850X 2TB NVMe
+[ ]  ssd-4.webp  —  Samsung 990 Pro 2TB NVMe
+
+== Конфігуратор: Накопичувач HDD ==
+[ ]  hdd-1.webp  —  Seagate Barracuda 1TB
+[ ]  hdd-2.webp  —  WD Blue 2TB
+[ ]  hdd-3.webp  —  Seagate Barracuda 4TB
+
+== Конфігуратор: Блок живлення ==
+[ ]  psu-1.webp  —  Chieftec 500W
+[ ]  psu-2.webp  —  be quiet! System Power 10 650W
+[ ]  psu-3.webp  —  Corsair RM850x 850W
+[ ]  psu-4.webp  —  Seasonic Focus GX-1000
+
+== Конфігуратор: Корпус ==
+[ ]  case-1.webp  —  Zalman T1 Plus
+[ ]  case-2.webp  —  1stPlayer F3
+[ ]  case-3.webp  —  LIAN LI Lancool 216 RGB
+[ ]  case-4.webp  —  Fractal Design North
+
+== Конфігуратор: Додаткові вентилятори ==
+[ ]  fans-1.webp  —  Arctic P12 ARGB (3 шт.)
+[ ]  fans-2.webp  —  Noctua NF-A12x25 PWM
+
+== Конфігуратор: Додаткові кабелі ==
+[ ]  cables-1.webp  —  Набір подовжувачів ARGB
+[ ]  cables-2.webp  —  Corsair Premium Sleeved Kit
+
+== Конфігуратор: Wi-Fi адаптер ==
+[ ]  wifi-1.webp  —  TP-Link Archer TX20E
+[ ]  wifi-2.webp  —  ASUS PCE-AX3000
+
+== Конфігуратор: Програмне забезпечення ==
+[ ]  os-1.webp  —  Windows 11 Home
+[ ]  os-2.webp  —  Windows 11 Pro
+
+Якщо файла немає — на сайті показується заглушка з літерами бренду.

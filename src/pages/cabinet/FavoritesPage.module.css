@@ -1,0 +1,11 @@
+.list { list-style: none; margin: 0; padding: 0; }
+.row { display: grid; grid-template-columns: 72px 1fr auto auto 28px; gap: 1rem; align-items: center; padding: 12px 0; border-top: 1px solid var(--border); font-size: 0.9rem; }
+.row:first-child { border-top: none; }
+.thumb { width: 72px; height: 54px; object-fit: contain; border-radius: 6px; background: linear-gradient(135deg, #1a1a1a, #2b0000); }
+.name small { display: block; margin-top: 3px; color: var(--muted); font-size: 0.75rem; font-weight: 200; }
+.name a:hover { color: var(--red-bright); }
+.row strong { font-family: var(--font-head); white-space: nowrap; }
+.row :global(button:not(.remove)) { padding: 8px 14px; font-size: 0.8rem; }
+.remove { background: none; border: none; color: var(--muted); font-size: 1.3rem; cursor: pointer; }
+.remove:hover { color: var(--red-bright); }
+@media (max-width: 700px) { .row { grid-template-columns: 56px 1fr 28px; } .row strong, .row :global(button:not(.remove)) { grid-column: 2 / 4; justify-self: start; } }

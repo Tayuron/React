@@ -1,93 +1,84 @@
-import { createContext, useCallback, useContext, useMemo, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import { tokenStore } from '../../api/http';
+import {
+  fetchCurrentUser,
+  logoutRequest,
+  useLoginRequest,
+  useRegisterRequest,
+} from '../../hooks/useAuthApi';
 
-const USERS_KEY = 'mg_users';
-const SESSION_KEY = 'mg_session';
+const USER_CACHE_KEY = 'mg_user';
 const AuthContext = createContext(null);
 
-function read(store, key) {
+function readCachedUser() {
   try {
-    return store.getItem(key);
+    if (!tokenStore.get()) return null;
+    return JSON.parse(localStorage.getItem(USER_CACHE_KEY));
   } catch {
     return null;
   }
 }
-function write(store, key, value) {
+function cacheUser(user) {
   try {
-    if (value === null) store.removeItem(key);
-    else store.setItem(key, value);
-  } catch {
-    /* сховище недоступне */
-  }
-}
-const getUsers = () => {
-  try {
-    return JSON.parse(read(localStorage, USERS_KEY)) ?? [];
-  } catch {
-    return [];
-  }
-};
-const publicUser = (u) =>
-  u ? { id: u.id, name: u.name, email: u.email, createdAt: u.createdAt } : null;
-
-function readSession() {
-  const id = read(localStorage, SESSION_KEY) ?? read(sessionStorage, SESSION_KEY);
-  return publicUser(getUsers().find((u) => u.id === id));
-}
-
-async function hashPassword(password, salt) {
-  const data = new TextEncoder().encode(salt + password);
-  const buf = await crypto.subtle.digest('SHA-256', data);
-  return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, '0')).join('');
+    if (user) localStorage.setItem(USER_CACHE_KEY, JSON.stringify(user));
+    else localStorage.removeItem(USER_CACHE_KEY);
+  } catch {}
 }
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(readSession);
+  const queryClient = useQueryClient();
+  const [user, setUserState] = useState(readCachedUser);
+  const loginRequest = useLoginRequest();
+  const registerRequest = useRegisterRequest();
 
-  const startSession = useCallback((account, remember) => {
-    write(localStorage, SESSION_KEY, remember ? account.id : null);
-    write(sessionStorage, SESSION_KEY, remember ? null : account.id);
-    setUser(publicUser(account));
+  const setUser = useCallback((u) => {
+    cacheUser(u);
+    setUserState(u);
   }, []);
 
-  const register = useCallback(
-    async ({ name, email, password }) => {
-      const users = getUsers();
-      const normalized = email.trim().toLowerCase();
-      if (users.some((u) => u.email === normalized)) {
-        return { ok: false, error: 'Акаунт з таким email уже існує' };
-      }
-      const salt = crypto.randomUUID();
-      const account = {
-        id: crypto.randomUUID(),
-        name: name.trim(),
-        email: normalized,
-        salt,
-        hash: await hashPassword(password, salt),
-        createdAt: new Date().toISOString(),
-      };
-      write(localStorage, USERS_KEY, JSON.stringify([...users, account]));
-      startSession(account, true);
-      return { ok: true };
-    },
-    [startSession],
-  );
+  useEffect(() => {
+    let cancelled = false;
+    fetchCurrentUser().then((u) => {
+      if (!cancelled) setUser(u);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [setUser]);
+
+  const { mutate: doLogin } = loginRequest;
+  const { mutate: doRegister } = registerRequest;
 
   const login = useCallback(
     async ({ email, password, remember }) => {
-      const account = getUsers().find((u) => u.email === email.trim().toLowerCase());
-      const ok = account && (await hashPassword(password, account.salt)) === account.hash;
-      if (!ok) return { ok: false, error: 'Невірний email або пароль' };
-      startSession(account, remember);
-      return { ok: true };
+      try {
+        setUser(await doLogin({ email, password, remember }));
+        return { ok: true };
+      } catch (e) {
+        return { ok: false, error: e.message };
+      }
     },
-    [startSession],
+    [doLogin, setUser],
   );
 
-  const logout = useCallback(() => {
-    write(localStorage, SESSION_KEY, null);
-    write(sessionStorage, SESSION_KEY, null);
+  const register = useCallback(
+    async ({ name, email, password }) => {
+      try {
+        setUser(await doRegister({ name, email, password }));
+        return { ok: true };
+      } catch (e) {
+        return { ok: false, error: e.message };
+      }
+    },
+    [doRegister, setUser],
+  );
+
+  const logout = useCallback(async () => {
     setUser(null);
-  }, []);
+    queryClient.clear();
+    await logoutRequest();
+  }, [setUser, queryClient]);
 
   const value = useMemo(() => ({ user, register, login, logout }), [user, register, login, logout]);
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

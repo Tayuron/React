@@ -1,5 +1,23 @@
-.panel { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; }
-.head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 1.2rem; }
-.head h2 { font-size: 1.3rem; }
-.action { font-size: 0.8rem; color: var(--red-bright); }
-.action:hover { text-decoration: underline; }
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.5rem;
+}
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+}
+.head h2 {
+  font-size: 1.3rem;
+}
+.action {
+  font-size: 0.8rem;
+  color: var(--red-bright);
+}
+.action:hover {
+  text-decoration: underline;
+}

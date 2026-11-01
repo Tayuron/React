@@ -1,8 +1,17 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+import { api } from '../../api/http';
+import { useFetch } from '../../hooks/useFetch';
 import { useAuth } from '../auth/AuthContext';
 
 const AccountContext = createContext(null);
-const keyFor = (uid) => `mg_account_${uid}`;
 const EMPTY = {
   orders: [],
   favorites: [],
@@ -13,78 +22,126 @@ export function isDeliveryComplete(d) {
   return Boolean(d.name?.trim() && d.phone?.trim() && d.city?.trim() && d.address?.trim());
 }
 
-function load(uid) {
-  if (!uid) return EMPTY;
-  try {
-    const saved = JSON.parse(localStorage.getItem(keyFor(uid)));
-    return { ...EMPTY, ...saved, delivery: { ...EMPTY.delivery, ...saved?.delivery } };
-  } catch {
-    return EMPTY;
-  }
-}
+const normalize = (raw) => ({
+  ...EMPTY,
+  ...raw,
+  delivery: { ...EMPTY.delivery, ...raw?.delivery },
+});
 
 export function AccountProvider({ children }) {
   const { user } = useAuth();
   const uid = user?.id ?? null;
-  const [state, setState] = useState(() => ({ uid, data: load(uid) }));
+  const [data, setData] = useState(EMPTY);
+  const [error, setError] = useState(null);
+  const dataRef = useRef(data);
+  dataRef.current = data;
 
-  // змінився акаунт — підвантажуємо його дані
-  if (state.uid !== uid) setState({ uid, data: load(uid) });
+  const remote = useFetch(`/account?user=${uid}`, { enabled: Boolean(uid) });
 
   useEffect(() => {
-    if (!state.uid) return;
-    try {
-      localStorage.setItem(keyFor(state.uid), JSON.stringify(state.data));
-    } catch {
-      /* сховище недоступне */
-    }
-  }, [state]);
+    if (!uid) setData(EMPTY);
+    else if (remote.data) setData(normalize(remote.data));
+  }, [uid, remote.data]);
 
-  const update = useCallback((fn) => setState((s) => ({ ...s, data: fn(s.data) })), []);
+  useEffect(() => {
+    if (remote.error && remote.error.status !== 401) setError(remote.error.message);
+  }, [remote.error]);
+
+  useEffect(() => {
+    if (!error) return;
+    const t = setTimeout(() => setError(null), 5000);
+    return () => clearTimeout(t);
+  }, [error]);
+
+  const patch = useCallback((fn) => setData((d) => fn(d)), []);
 
   const placeOrder = useCallback(
-    ({ items, total }) => {
-      const order = {
-        id: 'MG-' + String(Date.now()).slice(-6),
-        createdAt: new Date().toISOString(),
-        status: 'Очікує підтвердження оплати',
-        items,
-        total,
-        delivery: state.data.delivery,
-      };
-      update((d) => ({ ...d, orders: [order, ...d.orders] }));
+    async ({ items }) => {
+      const order = await api.post('/orders', { items });
+      patch((d) => ({ ...d, orders: [order, ...d.orders] }));
       return order;
     },
-    [update, state.data.delivery],
+    [patch],
   );
 
   const toggleFavorite = useCallback(
-    (product) =>
-      update((d) => ({
+    async (product) => {
+      const was = dataRef.current.favorites.some((f) => f.id === product.id);
+      const before = dataRef.current.favorites;
+
+      patch((d) => ({
         ...d,
-        favorites: d.favorites.some((f) => f.id === product.id)
-          ? d.favorites.filter((f) => f.id !== product.id)
-          : [product, ...d.favorites],
-      })),
-    [update],
+        favorites: was ? d.favorites.filter((f) => f.id !== product.id) : [product, ...d.favorites],
+      }));
+      try {
+        const favorites = was
+          ? await api.delete(`/account/favorites/${encodeURIComponent(product.id)}`)
+          : await api.post('/account/favorites', product);
+        patch((d) => ({ ...d, favorites }));
+      } catch (e) {
+        patch((d) => ({ ...d, favorites: before }));
+        setError(e.message);
+      }
+    },
+    [patch],
   );
 
-  const saveDelivery = useCallback((delivery) => update((d) => ({ ...d, delivery })), [update]);
+  const saveDelivery = useCallback(
+    async (delivery) => {
+      const before = dataRef.current.delivery;
+      patch((d) => ({ ...d, delivery }));
+      try {
+        const saved = await api.put('/account/delivery', delivery);
+        patch((d) => ({ ...d, delivery: saved }));
+      } catch (e) {
+        patch((d) => ({ ...d, delivery: before }));
+        setError(e.message);
+      }
+    },
+    [patch],
+  );
 
   const value = useMemo(
     () => ({
-      orders: state.data.orders,
-      favorites: state.data.favorites,
-      delivery: state.data.delivery,
-      isFavorite: (id) => state.data.favorites.some((f) => f.id === id),
+      orders: data.orders,
+      favorites: data.favorites,
+      delivery: data.delivery,
+      loading: remote.loading,
+      isFavorite: (id) => data.favorites.some((f) => f.id === id),
       placeOrder,
       toggleFavorite,
       saveDelivery,
     }),
-    [state.data, placeOrder, toggleFavorite, saveDelivery],
+    [data, remote.loading, placeOrder, toggleFavorite, saveDelivery],
   );
 
-  return <AccountContext.Provider value={value}>{children}</AccountContext.Provider>;
+  return (
+    <AccountContext.Provider value={value}>
+      {children}
+      {error && (
+        <div
+          role="alert"
+          onClick={() => setError(null)}
+          style={{
+            position: 'fixed',
+            left: '50%',
+            bottom: '1.5rem',
+            transform: 'translateX(-50%)',
+            zIndex: 1000,
+            maxWidth: '90vw',
+            padding: '0.8rem 1.2rem',
+            borderRadius: 8,
+            background: '#7f1d1d',
+            color: '#fff',
+            cursor: 'pointer',
+            boxShadow: '0 4px 20px rgba(0,0,0,.4)',
+          }}
+        >
+          {error}
+        </div>
+      )}
+    </AccountContext.Provider>
+  );
 }
 
 export function useAccount() {

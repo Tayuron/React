@@ -23,15 +23,33 @@ export function FilterSidebar({ filters }) {
         />
         <h4>Ціна (грн)</h4>
         <div className={s.range}>
-          <input type="number" min="0" placeholder="Від" aria-label="Ціна від" value={state.min} onChange={(e) => setMin(e.target.value)} />
-          <input type="number" min="0" placeholder="До" aria-label="Ціна до" value={state.max} onChange={(e) => setMax(e.target.value)} />
+          <input
+            type="number"
+            min="0"
+            placeholder="Від"
+            aria-label="Ціна від"
+            value={state.min}
+            onChange={(e) => setMin(e.target.value)}
+          />
+          <input
+            type="number"
+            min="0"
+            placeholder="До"
+            aria-label="Ціна до"
+            value={state.max}
+            onChange={(e) => setMax(e.target.value)}
+          />
         </div>
         {groups.map((g) => (
           <fieldset key={g.key} className={s.group}>
             <legend>{g.title}</legend>
             {g.options.map((o) => (
               <label key={o.value}>
-                <input type="checkbox" checked={state.selected[g.key]?.includes(o.value) ?? false} onChange={() => toggle(g.key, o.value)} />
+                <input
+                  type="checkbox"
+                  checked={state.selected[g.key]?.includes(o.value) ?? false}
+                  onChange={() => toggle(g.key, o.value)}
+                />
                 <span>{o.value}</span>
                 <small>{o.count}</small>
               </label>

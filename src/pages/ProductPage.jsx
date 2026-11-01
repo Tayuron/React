@@ -3,17 +3,21 @@ import { useParams, Link } from 'react-router-dom';
 import { Button } from '../modules/core/design-system/Button';
 import { ProductImage } from '../modules/core/design-system/ProductImage';
 import { AddToCartButton } from '../modules/cart/AddToCartButton';
-import { products, ramOptions, hddOptions, formatPrice } from '../data/products';
+import { Loading, ErrorState } from '../modules/core/design-system/AsyncState';
+import { useProduct } from '../hooks/useCatalog';
+import { formatPrice } from '../data/products';
 import s from './ProductPage.module.css';
 
 const shortName = (label) => label.replace(/\s*\(.*\)/, '');
 
 export function ProductPage() {
   const { id } = useParams();
-  const product = products.find((p) => p.id === id);
+  const { data: product, loading, error, refetch } = useProduct(id);
   const [ram, setRam] = useState(0);
   const [hdd, setHdd] = useState(0);
 
+  if (loading) return <Loading />;
+  if (error && error.status !== 404) return <ErrorState error={error} onRetry={refetch} />;
   if (!product) {
     return (
       <div className={s.notFound}>
@@ -23,6 +27,7 @@ export function ProductPage() {
     );
   }
 
+  const { ram: ramOptions, hdd: hddOptions } = product.options;
   const total = product.price + ramOptions[ram].price + hddOptions[hdd].price;
   const cartItem = {
     id: `${product.id}-r${ram}-h${hdd}`,
@@ -35,7 +40,13 @@ export function ProductPage() {
   return (
     <div className={s.layout}>
       <div className={s.gallery}>
-        <ProductImage className={s.image} src={product.image} alt={product.name} label={product.name} kind="pc" />
+        <ProductImage
+          className={s.image}
+          src={product.image}
+          alt={product.name}
+          label={product.name}
+          kind="pc"
+        />
       </div>
 
       <div className={s.info}>
@@ -57,13 +68,17 @@ export function ProductPage() {
           <label htmlFor="ram">Додати ОЗП</label>
           <select id="ram" value={ram} onChange={(e) => setRam(Number(e.target.value))}>
             {ramOptions.map((o, i) => (
-              <option key={o.label} value={i}>{o.label}</option>
+              <option key={o.label} value={i}>
+                {o.label}
+              </option>
             ))}
           </select>
           <label htmlFor="hdd">Додати HDD</label>
           <select id="hdd" value={hdd} onChange={(e) => setHdd(Number(e.target.value))}>
             {hddOptions.map((o, i) => (
-              <option key={o.label} value={i}>{o.label}</option>
+              <option key={o.label} value={i}>
+                {o.label}
+              </option>
             ))}
           </select>
         </div>

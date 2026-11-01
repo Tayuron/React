@@ -6,14 +6,32 @@ import { FavoriteButton } from '../../account/FavoriteButton';
 import s from './ProductCard.module.css';
 
 export function ProductCard({ product }) {
-  const cartItem = { id: product.id, name: product.name, price: product.price, image: product.image, kind: 'pc' };
+  const cartItem = {
+    id: product.id,
+    name: product.name,
+    price: product.price,
+    image: product.image,
+    kind: 'pc',
+  };
   return (
     <article className={s.card}>
       <div className={s.media}>
         <Link to={`/catalog/${product.id}`} className={s.imageLink}>
-          <ProductImage className={s.image} src={product.image} alt={product.name} label={product.name} kind="pc" />
+          <ProductImage
+            className={s.image}
+            src={product.image}
+            alt={product.name}
+            label={product.name}
+            kind="pc"
+          />
         </Link>
-        <FavoriteButton product={{ ...cartItem, href: `/catalog/${product.id}`, info: product.card.slice(0, 2).join(' · ') }} />
+        <FavoriteButton
+          product={{
+            ...cartItem,
+            href: `/catalog/${product.id}`,
+            info: product.card.slice(0, 2).join(' · '),
+          }}
+        />
       </div>
       <Link to={`/catalog/${product.id}`}>
         <h3 className={s.title}>{product.name}</h3>

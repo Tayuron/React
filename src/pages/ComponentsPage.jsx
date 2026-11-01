@@ -1,6 +1,7 @@
 import { ShopLayout } from '../modules/core/shop/ShopLayout';
 import { PartCard } from '../modules/core/shop/PartCard';
-import { componentItems } from '../data/parts';
+import { Loading, ErrorState } from '../modules/core/design-system/AsyncState';
+import { useComponents } from '../hooks/useCatalog';
 
 const fields = [
   { key: 'category', title: 'Категорія' },
@@ -8,10 +9,13 @@ const fields = [
 ];
 
 export function ComponentsPage() {
+  const { data, loading, error, refetch } = useComponents();
+  if (loading) return <Loading />;
+  if (error) return <ErrorState error={error} onRetry={refetch} />;
   return (
     <ShopLayout
       title="Комплектуючі"
-      items={componentItems}
+      items={data}
       fields={fields}
       renderItem={(item) => <PartCard item={item} />}
     />

@@ -26,7 +26,8 @@ const getUsers = () => {
     return [];
   }
 };
-const publicUser = (u) => (u ? { id: u.id, name: u.name, email: u.email, createdAt: u.createdAt } : null);
+const publicUser = (u) =>
+  u ? { id: u.id, name: u.name, email: u.email, createdAt: u.createdAt } : null;
 
 function readSession() {
   const id = read(localStorage, SESSION_KEY) ?? read(sessionStorage, SESSION_KEY);

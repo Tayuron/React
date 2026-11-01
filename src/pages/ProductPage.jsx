@@ -35,7 +35,13 @@ export function ProductPage() {
   return (
     <div className={s.layout}>
       <div className={s.gallery}>
-        <ProductImage className={s.image} src={product.image} alt={product.name} label={product.name} kind="pc" />
+        <ProductImage
+          className={s.image}
+          src={product.image}
+          alt={product.name}
+          label={product.name}
+          kind="pc"
+        />
       </div>
 
       <div className={s.info}>
@@ -57,13 +63,17 @@ export function ProductPage() {
           <label htmlFor="ram">Додати ОЗП</label>
           <select id="ram" value={ram} onChange={(e) => setRam(Number(e.target.value))}>
             {ramOptions.map((o, i) => (
-              <option key={o.label} value={i}>{o.label}</option>
+              <option key={o.label} value={i}>
+                {o.label}
+              </option>
             ))}
           </select>
           <label htmlFor="hdd">Додати HDD</label>
           <select id="hdd" value={hdd} onChange={(e) => setHdd(Number(e.target.value))}>
             {hddOptions.map((o, i) => (
-              <option key={o.label} value={i}>{o.label}</option>
+              <option key={o.label} value={i}>
+                {o.label}
+              </option>
             ))}
           </select>
         </div>

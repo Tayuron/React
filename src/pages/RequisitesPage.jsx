@@ -34,7 +34,12 @@ export function RequisitesPage() {
   if (!items.length) {
     return (
       <div className={s.wrap}>
-        <EmptyState title="Нічого оплачувати" text="Кошик порожній. Додайте товари з каталогу." to="/catalog" label="До каталогу" />
+        <EmptyState
+          title="Нічого оплачувати"
+          text="Кошик порожній. Додайте товари з каталогу."
+          to="/catalog"
+          label="До каталогу"
+        />
       </div>
     );
   }
@@ -65,23 +70,37 @@ export function RequisitesPage() {
       </ul>
 
       <p className={s.note}>
-        Перевірте мережу перед відправкою: переказ на іншу мережу не повертається. Після оплати натисніть кнопку
-        нижче, і замовлення зʼявиться в кабінеті.
+        Перевірте мережу перед відправкою: переказ на іншу мережу не повертається. Після оплати
+        натисніть кнопку нижче, і замовлення зʼявиться в кабінеті.
       </p>
 
       <section className={s.delivery}>
         <h2>Доставка</h2>
         {ready ? (
-          <p>{delivery.name}, {delivery.phone}<br />{delivery.carrier} · {delivery.city}, {delivery.address}</p>
+          <p>
+            {delivery.name}, {delivery.phone}
+            <br />
+            {delivery.carrier} · {delivery.city}, {delivery.address}
+          </p>
         ) : (
-          <p className={s.warn}>Спершу вкажіть дані доставки у <Link to="/cabinet">кабінеті</Link>.</p>
+          <p className={s.warn}>
+            Спершу вкажіть дані доставки у <Link to="/cabinet">кабінеті</Link>.
+          </p>
         )}
-        {ready && <Link to="/cabinet" className={s.edit}>Змінити</Link>}
+        {ready && (
+          <Link to="/cabinet" className={s.edit}>
+            Змінити
+          </Link>
+        )}
       </section>
 
       <div className={s.actions}>
-        <Button onClick={confirm} disabled={!ready}>Я оплатив(ла), оформити замовлення</Button>
-        <Button to="https://t.me/tayuron" variant="outline">Повідомити в Telegram</Button>
+        <Button onClick={confirm} disabled={!ready}>
+          Я оплатив(ла), оформити замовлення
+        </Button>
+        <Button to="https://t.me/tayuron" variant="outline">
+          Повідомити в Telegram
+        </Button>
       </div>
     </div>
   );

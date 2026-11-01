@@ -1,0 +1,19 @@
+.layout { max-width: 1100px; margin: 2.5rem auto; padding: 2.5rem; display: flex; gap: 40px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); }
+.gallery { flex: 0 0 40%; max-width: 450px; }
+.image { width: 100%; height: auto; display: block; border: 1px solid var(--border); border-radius: 8px; background: #000; }
+.info { flex: 1; min-width: 0; }
+.crumbs { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
+.crumbs a:hover { color: var(--red-bright); }
+.title { font-size: 2.2rem; line-height: 1.2; margin-bottom: 1.5rem; }
+.specs { list-style: none; margin: 0 0 1.5rem; padding: 0.5rem 1.5rem; background: #000; border: 1px solid var(--border); border-radius: 8px; }
+.specs li { padding: 10px 0; border-bottom: 1px dashed var(--border); }
+.specs li:last-child { border-bottom: none; }
+.specs span { display: inline-block; width: 170px; font-weight: 700; color: var(--red-bright); }
+.modules { padding: 1.2rem 1.5rem; margin-bottom: 1.5rem; background: #000; border: 1px solid var(--border); border-radius: 8px; }
+.modules label { display: block; margin: 10px 0 8px; font-weight: 700; color: var(--red-bright); }
+.modules select { width: 100%; max-width: 350px; padding: 12px 10px; background: var(--surface-2); color: var(--text); border: 1px solid #444; border-radius: 4px; font-family: var(--font-body); }
+.priceBox { padding: 1.5rem; background: #000; border: 2px solid var(--red); border-radius: 8px; box-shadow: 0 0 15px rgba(162, 0, 0, 0.6); }
+.price { font-family: var(--font-head); font-weight: 700; font-size: 2rem; color: var(--red-bright); text-align: center; margin-bottom: 1.2rem; }
+.notFound { text-align: center; padding: 6rem 5%; display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+@media (max-width: 900px) { .layout { flex-direction: column; padding: 1.5rem; margin: 1rem; gap: 24px; } .gallery { max-width: 100%; flex-basis: auto; } .title { font-size: 1.7rem; } }
+@media (max-width: 600px) { .specs span { display: block; width: auto; } }

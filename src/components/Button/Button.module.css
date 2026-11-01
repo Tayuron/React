@@ -1,0 +1,6 @@
+.btn { display: inline-flex; justify-content: center; align-items: center; padding: 14px 28px; border-radius: 6px; border: 1px solid transparent; font-family: var(--font-body); font-weight: 700; font-size: 0.95rem; cursor: pointer; transition: background 0.3s, color 0.3s; }
+.primary { background: var(--red-bright); color: #fff; }
+.primary:hover { background: #e00000; }
+.outline { background: transparent; color: var(--text); border-color: var(--text); }
+.outline:hover { background: var(--text); color: #000; }
+.full { width: 100%; }

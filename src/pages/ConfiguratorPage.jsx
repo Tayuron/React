@@ -8,7 +8,9 @@ import { configCategories } from '../data/configurator';
 import { formatPrice } from '../data/products';
 import s from './ConfiguratorPage.module.css';
 
-const lookup = new Map(configCategories.flatMap((c) => c.options.map((o) => [o.id, { cat: c.id, option: o }])));
+const lookup = new Map(
+  configCategories.flatMap((c) => c.options.map((o) => [o.id, { cat: c.id, option: o }])),
+);
 
 function parseBuild(raw) {
   const sel = {};
@@ -46,8 +48,13 @@ export function ConfiguratorPage() {
   const setFilter = (patch) => setFilters((all) => ({ ...all, [activeId]: { ...f, ...patch } }));
   const brands = [...new Set(active.options.map((o) => o.brand))];
   const q = f.q.trim().toLowerCase();
-  const visible = active.options.filter((o) => (!f.brand || o.brand === f.brand) && (!q || o.name.toLowerCase().includes(q)));
-  const conflict = (o) => getIssues({ ...sel, [active.id]: o }).find((i) => i.severity === 'error' && i.categories.includes(active.id))?.message;
+  const visible = active.options.filter(
+    (o) => (!f.brand || o.brand === f.brand) && (!q || o.name.toLowerCase().includes(q)),
+  );
+  const conflict = (o) =>
+    getIssues({ ...sel, [active.id]: o }).find(
+      (i) => i.severity === 'error' && i.categories.includes(active.id),
+    )?.message;
 
   function toggle(o) {
     setSelected((cur) => {
@@ -88,9 +95,16 @@ export function ConfiguratorPage() {
           <ul>
             {configCategories.map((c) => (
               <li key={c.id}>
-                <button type="button" className={`${s.navBtn} ${c.id === activeId ? s.navOn : ''}`} aria-current={c.id === activeId} onClick={() => setActiveId(c.id)}>
+                <button
+                  type="button"
+                  className={`${s.navBtn} ${c.id === activeId ? s.navOn : ''}`}
+                  aria-current={c.id === activeId}
+                  onClick={() => setActiveId(c.id)}
+                >
                   <span className={s.navTitle}>{c.title}</span>
-                  <small className={sel[c.id] ? s.navDone : ''}>{sel[c.id] ? sel[c.id].name : c.required ? 'Не обрано' : 'Необовʼязково'}</small>
+                  <small className={sel[c.id] ? s.navDone : ''}>
+                    {sel[c.id] ? sel[c.id].name : c.required ? 'Не обрано' : 'Необовʼязково'}
+                  </small>
                 </button>
               </li>
             ))}
@@ -100,20 +114,49 @@ export function ConfiguratorPage() {
         <section className={s.picker} aria-label={active.title}>
           {brands.length > 1 && (
             <div className={s.chips} role="group" aria-label="Бренд">
-              <button type="button" className={!f.brand ? s.chipOn : s.chip} onClick={() => setFilter({ brand: '' })}>Всі</button>
+              <button
+                type="button"
+                className={!f.brand ? s.chipOn : s.chip}
+                onClick={() => setFilter({ brand: '' })}
+              >
+                Всі
+              </button>
               {brands.map((b) => (
-                <button key={b} type="button" className={f.brand === b ? s.chipOn : s.chip} onClick={() => setFilter({ brand: f.brand === b ? '' : b })}>{b}</button>
+                <button
+                  key={b}
+                  type="button"
+                  className={f.brand === b ? s.chipOn : s.chip}
+                  onClick={() => setFilter({ brand: f.brand === b ? '' : b })}
+                >
+                  {b}
+                </button>
               ))}
             </div>
           )}
-          <input type="search" className={s.search} placeholder={`Пошук: ${active.title.toLowerCase()}`} aria-label="Пошук" value={f.q} onChange={(e) => setFilter({ q: e.target.value })} />
+          <input
+            type="search"
+            className={s.search}
+            placeholder={`Пошук: ${active.title.toLowerCase()}`}
+            aria-label="Пошук"
+            value={f.q}
+            onChange={(e) => setFilter({ q: e.target.value })}
+          />
 
           <div className={`${s.current} ${!current && active.required ? s.currentWarn : ''}`}>
             <div>
               <b>{active.title}</b>
               <small>{current ? current.name : active.emptyLabel}</small>
             </div>
-            {current && <button type="button" className={s.remove} onClick={() => toggle(current)} aria-label={`Прибрати: ${current.name}`}>×</button>}
+            {current && (
+              <button
+                type="button"
+                className={s.remove}
+                onClick={() => toggle(current)}
+                aria-label={`Прибрати: ${current.name}`}
+              >
+                ×
+              </button>
+            )}
           </div>
 
           {visible.length ? (
@@ -123,14 +166,26 @@ export function ConfiguratorPage() {
                 const bad = conflict(o);
                 return (
                   <li key={o.id} className={`${s.opt} ${isSel ? s.optOn : ''}`}>
-                    <ProductImage className={s.thumb} src={o.image} alt={o.name} label={o.brand} kind={o.kind} />
+                    <ProductImage
+                      className={s.thumb}
+                      src={o.image}
+                      alt={o.name}
+                      label={o.brand}
+                      kind={o.kind}
+                    />
                     <div className={s.optInfo}>
                       <b>{o.name}</b>
                       <small>{o.desc}</small>
                       {bad && <em>Несумісно: {bad}</em>}
                     </div>
                     <strong>{formatPrice(o.price)}</strong>
-                    <button type="button" className={s.pick} aria-pressed={isSel} aria-label={`${isSel ? 'Прибрати' : 'Обрати'} ${o.name}`} onClick={() => toggle(o)}>
+                    <button
+                      type="button"
+                      className={s.pick}
+                      aria-pressed={isSel}
+                      aria-label={`${isSel ? 'Прибрати' : 'Обрати'} ${o.name}`}
+                      onClick={() => toggle(o)}
+                    >
                       {isSel ? '✓' : '+'}
                     </button>
                   </li>
@@ -145,24 +200,39 @@ export function ConfiguratorPage() {
         <aside className={s.summary} aria-label="Ваша збірка">
           <h2>Збірка</h2>
           <p className={s.progress}>
-            Обрано <b>{Object.keys(sel).length}</b>/{configCategories.length} · обовʼязкових {doneRequired}/{required.length}
+            Обрано <b>{Object.keys(sel).length}</b>/{configCategories.length} · обовʼязкових{' '}
+            {doneRequired}/{required.length}
           </p>
 
           {errors.length === 0 && warnings.length === 0 ? (
             <p className={s.ok}>✓ Комплектуючі сумісні</p>
           ) : (
             <ul className={s.issues}>
-              {errors.map((i) => <li key={i.message} className={s.err}>✕ {i.message}</li>)}
-              {warnings.map((i) => <li key={i.message} className={s.warn}>! {i.message}</li>)}
+              {errors.map((i) => (
+                <li key={i.message} className={s.err}>
+                  ✕ {i.message}
+                </li>
+              ))}
+              {warnings.map((i) => (
+                <li key={i.message} className={s.warn}>
+                  ! {i.message}
+                </li>
+              ))}
             </ul>
           )}
-          {power > 0 && <p className={s.power}>Орієнтовне споживання: ~{power} Вт · БЖ від {recommendedPsu(power)} Вт</p>}
+          {power > 0 && (
+            <p className={s.power}>
+              Орієнтовне споживання: ~{power} Вт · БЖ від {recommendedPsu(power)} Вт
+            </p>
+          )}
 
           <ul className={s.rows}>
             {configCategories.map((c) => (
               <li key={c.id}>
                 <span>{c.title}</span>
-                <b className={sel[c.id] ? '' : s.dim}>{sel[c.id] ? sel[c.id].name : c.emptyLabel}</b>
+                <b className={sel[c.id] ? '' : s.dim}>
+                  {sel[c.id] ? sel[c.id].name : c.emptyLabel}
+                </b>
               </li>
             ))}
           </ul>
@@ -171,13 +241,27 @@ export function ConfiguratorPage() {
             <span>Загальна сума</span>
             <strong>{formatPrice(total)}</strong>
           </div>
-          <Button full disabled={!canBuy} onClick={buy}>Купити</Button>
+          <Button full disabled={!canBuy} onClick={buy}>
+            Купити
+          </Button>
           {!canBuy && (
-            <p className={s.hint}>{errors.length ? 'Усуньте несумісність компонентів.' : `Оберіть обовʼязкові компоненти: ${doneRequired} з ${required.length}.`}</p>
+            <p className={s.hint}>
+              {errors.length
+                ? 'Усуньте несумісність компонентів.'
+                : `Оберіть обовʼязкові компоненти: ${doneRequired} з ${required.length}.`}
+            </p>
           )}
           <div className={s.tools}>
-            <button type="button" onClick={share}>{copied ? 'Посилання скопійовано' : 'Поділитися'}</button>
-            <button type="button" onClick={() => setSelected({})} disabled={!Object.keys(selected).length}>Очистити</button>
+            <button type="button" onClick={share}>
+              {copied ? 'Посилання скопійовано' : 'Поділитися'}
+            </button>
+            <button
+              type="button"
+              onClick={() => setSelected({})}
+              disabled={!Object.keys(selected).length}
+            >
+              Очистити
+            </button>
           </div>
         </aside>
       </div>

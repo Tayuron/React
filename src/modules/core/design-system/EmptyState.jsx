@@ -6,7 +6,11 @@ export function EmptyState({ title, text, to, label }) {
     <div className={s.box}>
       <h3>{title}</h3>
       {text && <p>{text}</p>}
-      {to && <Button to={to} variant="outline">{label}</Button>}
+      {to && (
+        <Button to={to} variant="outline">
+          {label}
+        </Button>
+      )}
     </div>
   );
 }
